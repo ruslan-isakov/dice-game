@@ -18,4 +18,4 @@ Develop Dice games using TypeScript, Next.js, and Material UI.
 - Using the Material UI library for interface styling.
 
 ### The project has been deployed at:  
-[The Simple Dice Game](dice-game-r0vd7g1a7-ruslan-isakovs-projects.vercel.app)
+[The Simple Dice Game](https://dice-game-psi-seven.vercel.app)
