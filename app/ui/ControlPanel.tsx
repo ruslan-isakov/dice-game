@@ -31,7 +31,7 @@ export default function ControlPanel({ alertHandle }: ControlPanelProps) {
           alertHandle(state.result);
         addGameResult(state);
     }, 200)
-  }, [state, addGameResult]);
+  }, [state, addGameResult, alertHandle]);
 
   return (
     <Container
