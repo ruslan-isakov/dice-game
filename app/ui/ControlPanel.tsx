@@ -13,6 +13,7 @@ import { useDiceStore } from "@/app/lib/useDiceStore";
 export default function ControlPanel({ alertHandle }: ControlPanelProps) {
   const [typeValue, setTypeValue] = useState<"under" | "over">("under");
   const [sliderValue, setSliderValue] = useState<number>(1);
+  const [lastProcessedState, setLastProcessedState] = useState<StateInterface | null>(null);
   const initialState: StateInterface = {
     errors: undefined,
     message: undefined,
@@ -26,11 +27,13 @@ export default function ControlPanel({ alertHandle }: ControlPanelProps) {
 
 
   useEffect(() => {
-    setTimeout(()=> {
-        if (state.result !== undefined)
-          alertHandle(state.result);
-        addGameResult(state);
-    }, 200)
+    if (state.playNumber !== undefined && state !== lastProcessedState) {
+      if (state.result !== undefined) {
+        alertHandle(state.result);
+      }
+      addGameResult(state);
+      setLastProcessedState(state);
+    }
   }, [state, addGameResult, alertHandle]);
 
   return (
