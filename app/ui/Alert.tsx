@@ -1,17 +1,35 @@
+"use client"
+
 import Box from "@mui/material/Box";
 import { Alert } from "@mui/material";
 import { StateInterface } from "@/app/lib/definitions";
 import { useDiceStore } from "@/app/lib/useDiceStore"
+import { useEffect, useState } from "react";
 
 export default function AlertBox() {
   const lastState: StateInterface | null = useDiceStore((s) => s.lastState);
   const hasPlayed = useDiceStore((s) => s.hasPlayed)
 
-  if (!hasPlayed || lastState?.result === undefined) return null;
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (hasPlayed && lastState?.result !== undefined) {
+      setVisible(true);
+
+      const timer = setTimeout(() => {
+        setVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [hasPlayed, lastState]);
+
+  if (!visible || lastState === null) return null;
+
 
   return (
     <Box sx={{ position: 'absolute', top: '1rem', left: 0, width: '100%' }}>
-      {lastState.result ? (
+      {lastState.result  ? (
         <Alert variant="filled" severity="success" icon={<SuccessIcon />}>
           You won
         </Alert>
