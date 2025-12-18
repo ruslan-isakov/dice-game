@@ -9,6 +9,7 @@ interface DiceState {
   clearHistory: () => void;
   hasPlayed: boolean;
   play: () => void;
+  resetPlay: () => void;
 }
 
 export const useDiceStore = create<DiceState>()(
@@ -18,13 +19,8 @@ export const useDiceStore = create<DiceState>()(
       lastState: null,
       hasPlayed: false,
 
-      play: () => {
-        set({ hasPlayed: true });
-
-        setTimeout(() => {
-          set({ hasPlayed: false });
-        }, 3500);
-      },
+      play: () => set({ hasPlayed: true }),
+      resetPlay: () => set({ hasPlayed: false }),
 
       addGameResult: (state: StateInterface) => {
         if (state.playNumber === undefined) return;

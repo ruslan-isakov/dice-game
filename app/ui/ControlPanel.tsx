@@ -25,7 +25,11 @@ export default function ControlPanel() {
   const [state, formAction, isPending] = useActionState(playAction, initialState);
   const addGameResult = useDiceStore((s) => s.addGameResult);
   const play = useDiceStore((s) => s.play);
+  const resetPlay = useDiceStore((s) => s.resetPlay);
 
+  useEffect(() => {
+    resetPlay();
+  }, []);
 
   useEffect(() => {
     if (state.playNumber !== undefined && state !== lastProcessedState) {
