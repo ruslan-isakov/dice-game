@@ -6,11 +6,11 @@ import { Button, FormControlLabel, Radio, RadioGroup, Slider } from "@mui/materi
 import * as React from "react";
 import { useActionState, useEffect, useState } from "react";
 import { playAction } from "@/app/lib/actions";
-import { ControlPanelProps, StateInterface } from "@/app/lib/definitions";
+import { StateInterface } from "@/app/lib/definitions";
 import { useDiceStore } from "@/app/lib/useDiceStore";
 
 
-export default function ControlPanel({ alertHandle }: ControlPanelProps) {
+export default function ControlPanel() {
   const [typeValue, setTypeValue] = useState<"under" | "over">("under");
   const [sliderValue, setSliderValue] = useState<number>(1);
   const [lastProcessedState, setLastProcessedState] = useState<StateInterface | null>(null);
@@ -24,17 +24,17 @@ export default function ControlPanel({ alertHandle }: ControlPanelProps) {
   };
   const [state, formAction, isPending] = useActionState(playAction, initialState);
   const addGameResult = useDiceStore((s) => s.addGameResult);
+  const play = useDiceStore((s) => s.play);
 
 
   useEffect(() => {
     if (state.playNumber !== undefined && state !== lastProcessedState) {
       if (state.result !== undefined) {
-        alertHandle(state.result);
       }
       addGameResult(state);
       setLastProcessedState(state);
     }
-  }, [state, addGameResult, alertHandle]);
+  }, [state, addGameResult]);
 
   return (
     <Container
@@ -107,6 +107,7 @@ export default function ControlPanel({ alertHandle }: ControlPanelProps) {
             sx={ { width: "100%" } }
             type="submit"
             disabled={ isPending }
+            onClick={play}
           >
             PLAY
           </Button>

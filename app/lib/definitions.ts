@@ -9,10 +9,6 @@ export interface StateInterface {
   num: number | undefined,
 }
 
-export interface ControlPanelProps {
-  alertHandle: (state: boolean | undefined) => void;
-}
-
 export interface DiceGameRow {
   date: string;
   guess: string;
