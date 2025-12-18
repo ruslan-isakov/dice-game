@@ -110,7 +110,7 @@ export default function ControlPanel() {
             variant="contained"
             sx={ { width: "100%" } }
             type="submit"
-            disabled={ isPending }
+            loading={ isPending }
             onClick={play}
           >
             PLAY
