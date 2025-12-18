@@ -2,7 +2,7 @@
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import { Button, FormControlLabel, Radio, RadioGroup, Slider } from "@mui/material";
+import { Button, CircularProgress, FormControlLabel, Radio, RadioGroup, Slider } from "@mui/material";
 import * as React from "react";
 import { useActionState, useEffect, useState } from "react";
 import { playAction } from "@/app/lib/actions";
@@ -67,9 +67,12 @@ export default function ControlPanel() {
           justifyContent: "center",
           alignItems: "center",
         } }>
-          { state.playNumber !== undefined
-            ? state.playNumber
-            : "🤔"
+          {
+            isPending
+              ?  <CircularProgress />
+              : state.playNumber !== undefined
+                ? state.playNumber
+                : "🤔"
           }
         </Box>
         <form action={ formAction }>
